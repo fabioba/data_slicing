@@ -49,9 +49,17 @@ def get_descriptive_stat_numeric(df):
     try:
         log.info('read_csv')
 
-        df_stats=df.describe(include=np.number)
+        list_class=df['variety'].unique()
 
-        return df_stats
+        df_result=pd.DataFrame()
+    
+        for c in list_class:
+            df_stats=df[df['variety']==c].describe(include=np.number)
+
+            df_stats['variety']=c
+            df_result=df_result.append(df_stats)
+
+        return df_result
 
 
     
